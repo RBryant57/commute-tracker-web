@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { CommuteComponent } from './commute/commute.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet],
+  imports: [RouterOutlet, CommuteComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
