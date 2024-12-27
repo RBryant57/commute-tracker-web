@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+
 import { Destination } from '../destination/destination-model';
 import { DestinationService } from '../destination/destination.service';
 import { Route } from '../route/route-model';
 import { RouteService } from '../route/route.service';
-//import { FilterService } from 'primeng/api';
 import { DelayReason } from '../delay-reason/delay-reason-model';
 import { DelayReasonService } from '../delay-reason/delay-reason.service';
 import { FareClass } from '../fare-class/fare-class-model';
@@ -13,6 +14,7 @@ import { CommuteLeg } from './commute-model';
 import { CommuteService } from './commute.service';
 import { AlertService } from '../alert/alert.service';
 import { AlertModule } from "../alert/alert.module";
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-commute',
@@ -20,29 +22,24 @@ import { AlertModule } from "../alert/alert.module";
   styleUrls: ['./commute.component.css'],
   imports: [
     ReactiveFormsModule,
-    AlertModule
+    AlertModule,
+    CommonModule,
+    NgbModule
   ],
   standalone: true
-  //providers: [FilterService]
 })
+
 export class CommuteComponent implements OnInit {
   commuteForm: FormGroup;
 
   public routes: Route[] | undefined;
-  //public selectedRoute: Route;
   public delayReasons: DelayReason[] | undefined;
-  //public selectedDelayReason: DelayReason;
-  //public delaySeconds: number;
   public destinations: Destination[] | undefined;
-  //public selectedDestination: Destination;
   public fareClasses: FareClass[] | undefined;
-  //public selectedFareClass: FareClass;
   public startTime: string | undefined;
   public endTime: string | undefined;
-  //public date: Date;
   public name = new FormControl('commute');
   public showDelaySeconds: boolean = false;
-
 
 
   displayMonths = 2;

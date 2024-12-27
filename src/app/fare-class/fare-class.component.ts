@@ -1,31 +1,39 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Params } from '@angular/router';
+import { CommonModule } from '@angular/common';
+
 import { FareClass } from './fare-class-model';
 import { FareClassService } from './fare-class.service';
 
 @Component({
   selector: 'app-fare-class',
+  standalone: true,
   templateUrl: './fare-class.component.html',
-  styleUrls: ['./fare-class.component.css']
+  styleUrls: ['./fare-class.component.css'],
+  imports: [CommonModule]
 })
+
 export class FareClassComponent implements OnInit {
   public entities: FareClass[];
+  public isList: boolean;
+  public entityName: string;
   private errorMessage: string;
+  private param: Params;
 
   constructor(private service: FareClassService, private route: ActivatedRoute) { }
 
   ngOnInit() {
-    var param;
     this.route.params.subscribe(params => {
-      param = params;
+      this.param = params;
     });
 
-    if (!!param.id) {
-      this.loadEntity(param.id);
+    if (!!this.param['id']) {
+      this.loadEntity(this.param['id']);
+      this.isList = false;
     }
     else {
       this.loadEntities();
-      console.log(this.entities);
+      this.isList = true;
     }
   }
 
@@ -42,10 +50,9 @@ export class FareClassComponent implements OnInit {
     this.service.getEntity(id).subscribe(
       entity => {
         this.entities = new Array(entity);
+        this.entityName = entity.name;
       },
       error => this.errorMessage = <any>error
     );
   }
-
-
 }

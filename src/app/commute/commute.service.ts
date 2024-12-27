@@ -1,18 +1,22 @@
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
-import { Inject, Injectable } from '@angular/core';
-import { Observable, throwError } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { Injectable } from '@angular/core';
+
 import { CommuteLeg, CommuteLegRequest } from './commute-model';
+import { ConfgService } from '../config-service/confg.service';
 
 @Injectable({
   providedIn: 'root'
 })
+
 export class CommuteService {
-
-  private baseURL: string;
-  private http: HttpClient;
-
-  constructor(http: HttpClient, @Inject('BASE_URL') baseUrl: string) { this.baseURL = baseUrl; this.http = http; }
+  constructor(private http: HttpClient, private configService: ConfgService) { 
+    this.configService.loadConfig()
+      .subscribe((conf) => {
+        this.baseURL = conf.apiHost;
+      });
+  }
+  
+  baseURL!: string;
 
   public postCommute(leg: CommuteLeg) {
     var url = this.baseURL + 'api/CommuteLegs/true';
@@ -48,7 +52,7 @@ export class CommuteService {
       errorMessage = `Server returned code: ${err.status}, error message is: ${err.message}`;
     }
     console.error(errorMessage);
-    return throwError(errorMessage);
+    return (errorMessage);
   }
 
   private transformCommuteLeg(commuteLeg: CommuteLeg): CommuteLegRequest {

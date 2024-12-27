@@ -3,16 +3,20 @@ import { Inject, Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 import { Destination } from './destination-model';
+import { ConfgService } from '../config-service/confg.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DestinationService {
-
-  private baseURL: string;
-  private http: HttpClient;
-
-  constructor(http: HttpClient, @Inject('BASE_URL') baseUrl: string) { this.baseURL = baseUrl; this.http = http; }
+  constructor(private http: HttpClient, private configService: ConfgService) { 
+    this.configService.loadConfig()
+      .subscribe((conf) => {
+        this.baseURL = conf.apiHost;
+      });
+  }
+  
+  baseURL!: string;
 
   public getEntities(): Observable<Destination[]> {
     return this.http.get<Destination[]>(this.baseURL + 'api/destinations').pipe(

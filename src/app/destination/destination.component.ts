@@ -1,32 +1,38 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Params } from '@angular/router';
+
 import { Destination } from './destination-model'
 import { DestinationService } from './destination.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-destination',
+  standalone: true,
   templateUrl: './destination.component.html',
-  styleUrls: ['./destination.component.css']
+  styleUrls: ['./destination.component.css'],
+  imports: [CommonModule]
 })
 export class DestinationComponent implements OnInit {
-
-  public entities: Destination[];
-  private errorMessage: string;
+  public entities: Destination[] | undefined;
+  public isList: boolean;
+  public entityName: string;
+  private errorMessage: string | undefined;
+  private param: Params;
 
   constructor(private service: DestinationService, private route: ActivatedRoute) { }
 
   ngOnInit() {
-    var param;
     this.route.params.subscribe(params => {
-      param = params;
+      this.param = params;
     });
 
-    if (!!param.id) {
-      this.loadEntity(param.id);
+    if (!!this.param['id']) {
+      this.loadEntity(this.param['id']);
+      this.isList = false;
     }
     else {
       this.loadEntities();
-      console.log(this.entities);
+      this.isList = true;
     }
   }
 
@@ -43,6 +49,7 @@ export class DestinationComponent implements OnInit {
     this.service.getEntity(id).subscribe(
       entity => {
         this.entities = new Array(entity);
+        this.entityName = entity.name;
       },
       error => this.errorMessage = <any>error
     );

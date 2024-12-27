@@ -1,22 +1,37 @@
-<h1 id="tableLabel">Fare Classes</h1>
+<div class="container">
+  <div class="py-5 text-center">
+    <img class="d-block mx-auto mb-4" src="../../assets/images/YCDLogo.png" alt="" width="172" height="172">
+    <h2 *ngIf="isList">List of Fare Classes</h2>
+    <h2 *ngIf="!isList">Fare Class {{ entityName }}</h2>
+    <p class="lead" *ngIf="isList">These are the fare classes used in commutes:</p>
+    <p class="lead" *ngIf="!isList">These are the details for Fare Class {{ entityName }}:</p>
+  </div>
 
-<p>Fare Classes used in a commute.</p>
+  <p *ngIf="!entities"><em>Loading...</em></p>
 
-<p *ngIf="!entities"><em>Loading...</em></p>
-
-<table class='table table-striped' aria-labelledby="tableLabel" *ngIf="entities">
-  <thead>
-    <tr>
-      <th>Id</th>
-      <th>Name</th>
-      <th>Notes</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let entity of entities">
-      <td><a href="fareclass/{{ entity.id }}">{{ entity.id }}</a></td>
-      <td>{{ entity.name }}</td>
-      <td>{{ entity.notes }}</td>
-    </tr>
-  </tbody>
-</table>
+  <table class='table table-striped' aria-labelledby="tableLabel" *ngIf="entities">
+    <thead>
+      <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Notes</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let entity of entities">
+        <td><a href="fareclass/{{ entity.id }}">{{ entity.id }}</a></td>
+        <td>{{ entity.name }}</td>
+        <td>{{ entity.notes }}</td>
+      </tr>
+    </tbody>
+  </table>
+  <footer class="my-5 pt-5 text-muted text-center text-small">
+    <p class="mb-1">&copy; 2006-2025 YellowCaddis Development</p>
+    <ul class="list-inline">
+      <li class="list-inline-item"><a href="#">Privacy</a></li>
+      <li class="list-inline-item"><a href="#">Terms</a></li>
+      <li class="list-inline-item"><a href="#">Support</a></li>
+    </ul>
+  </footer>
+</div>
+<hr class="footer" />

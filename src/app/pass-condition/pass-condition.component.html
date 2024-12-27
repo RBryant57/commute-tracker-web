@@ -7,8 +7,9 @@
     </div>
 
     <div class="container">
+      <h4 class="mb-3">Date</h4>
       <div class="row">
-        <div class="col-md-4 mb-5">
+        <div class="col-md-6">
           <label for="date">Date</label>
           <div class="input-group">
             <input class="form-control" formControlName="date" placeholder="yyyy-mm-dd" name="dp"
@@ -19,7 +20,7 @@
             </div>
           </div>
         </div>
-        <div class="col-md-4 mb-3">
+        <div class="col-md-6">
           <label for="time">Time</label>
           <div class="input-group">
             <input type="text" class="form-control" formControlName="time" placeholder="Pass Condition Time">
@@ -37,7 +38,7 @@
 
       <h4 class="mb-3">Information</h4>
       <div class="row">
-        <div class="col-md-4 mb-3">
+        <div class="col-md-6">
           <label for="minutes">Minutes</label>
           <div class="input-group">
             <input type="number" class="form-control" formControlName="minutes" placeholder="Minutes">
@@ -46,7 +47,7 @@
             Minutes are required.
           </div>
         </div>
-        <div class="col-md-4 mb-3">
+        <div class="col-md-6">
           <label for="usualMinutes">Usual Minutes</label>
           <div class="input-group">
             <input type="number" class="form-control" formControlName="usualMinutes" placeholder="Usual Minutes">
@@ -58,7 +59,7 @@
       </div>
 
       <div class="row">
-        <div class="col-md-4 mb-3">
+        <div class="col-md-6">
           <label for="route">Route</label>
           <select class="custom-select d-block w-100" id="route" formControlName="route">
             <option *ngFor="let route of routes" [ngValue]="route">{{route.name}}</option>
@@ -67,7 +68,7 @@
             Please select a valid route.
           </div>
         </div>
-        <div class="col-md-4 mb-3">
+        <div class="col-md-6">
           <label for="delayReason">Delay Reason</label>
           <select class="custom-select d-block w-100" formControlName="delayReasonName">
             <option *ngFor="let delayReason of delayReasons" [ngValue]="delayReason">
@@ -79,16 +80,18 @@
           </div>
         </div>
       </div>
-      <hr class="mb-2">
+      <span class="divider"></span>
+      <hr class="entry">
+      <span class="divider"></span>
       <div class="row">
         <div class="col-md-4 mb-3">
-          <button class="btn btn-primary btn-lg btn-block" type="submit" (click)="this.addPassCondition()">Add Pass Condition</button>
+          <button class="btn btn-primary btn-lg btn-block entry" type="submit" (click)="this.addPassCondition()">Add Pass Condition</button>
         </div>
       </div>
     </div>
     <alert></alert>
     <footer class="my-5 pt-5 text-muted text-center text-small">
-      <p class="mb-1">&copy; 2006-2021 YellowCaddis Development</p>
+      <p class="mb-1">&copy; 2006-2025 YellowCaddis Development</p>
       <ul class="list-inline">
         <li class="list-inline-item"><a href="#">Privacy</a></li>
         <li class="list-inline-item"><a href="#">Terms</a></li>
@@ -96,5 +99,5 @@
       </ul>
     </footer>
   </div>
-  <hr />
+  <hr class="footer"/>
 </form>

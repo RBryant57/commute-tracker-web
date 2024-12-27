@@ -1,31 +1,39 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Params } from '@angular/router';
+import { CommonModule } from '@angular/common';
+
 import { DelayReason } from './delay-reason-model';
 import { DelayReasonService } from './delay-reason.service';
 
 @Component({
   selector: 'app-delay-reason',
+  standalone: true,
   templateUrl: './delay-reason.component.html',
-  styleUrls: ['./delay-reason.component.css']
+  styleUrls: ['./delay-reason.component.css'],
+  imports: [CommonModule]
 })
+
 export class DelayReasonComponent implements OnInit {
   public entities: DelayReason[];
+  public isList: boolean;
+  public entityName: string;
   private errorMessage: string;
+  private param: Params;
 
   constructor(private service: DelayReasonService, private route: ActivatedRoute) { }
 
   ngOnInit() {
-    var param;
     this.route.params.subscribe(params => {
-      param = params;
+      this.param = params;
     });
 
-    if (!!param.id) {
-      this.loadEntity(param.id);
+    if (!!this.param['id']) {
+      this.loadEntity(this.param['id']);
+      this.isList = false;
     }
     else {
       this.loadEntities();
-      console.log(this.entities);
+      this.isList = true;
     }
   }
 
@@ -42,6 +50,7 @@ export class DelayReasonComponent implements OnInit {
     this.service.getEntity(id).subscribe(
       entity => {
         this.entities = new Array(entity);
+        this.entityName = entity.description
       },
       error => this.errorMessage = <any>error
     );

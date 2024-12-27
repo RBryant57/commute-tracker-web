@@ -1,5 +1,6 @@
 export class DestinationModel {
 }
+
 export class Destination {
   constructor(
     public id: number,

@@ -2,12 +2,14 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
+
 import { DelayReason } from './delay-reason-model';
 import { ConfgService } from '../config-service/confg.service';
 
 @Injectable({
   providedIn: 'root'
 })
+
 export class DelayReasonService {
   constructor(private http: HttpClient, private configService: ConfgService) { 
     this.configService.loadConfig()

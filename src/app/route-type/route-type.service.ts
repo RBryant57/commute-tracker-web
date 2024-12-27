@@ -1,18 +1,24 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { Inject, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
-import { RouteType } from './route-type-model';
 import { catchError, map, tap } from 'rxjs/operators';
+
+import { ConfgService } from '../config-service/confg.service';
+import { RouteType } from './route-type-model';
 
 @Injectable({
   providedIn: 'root'
 })
+
 export class RouteTypeService {
-
-  private baseURL: string;
-  private http: HttpClient;
-
-  constructor(http: HttpClient, @Inject('BASE_URL') baseUrl: string) { this.baseURL = baseUrl; this.http = http; }
+  constructor(private http: HttpClient, private configService: ConfgService) { 
+    this.configService.loadConfig()
+      .subscribe((conf) => {
+        this.baseURL = conf.apiHost;
+      });
+  }
+  
+  baseURL!: string;
 
   public getEntities(): Observable<RouteType[]> {
     return this.http.get<RouteType[]>(this.baseURL + 'api/routetypes').pipe(

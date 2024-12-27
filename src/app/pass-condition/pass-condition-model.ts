@@ -4,13 +4,13 @@ import { Route } from "../route/route-model";
 export class PassConditionModel {
 }
 export class PassCondition {
-  Id: number;
-  Date: Date;
-  Minutes: number;
-  UsualMinutes: number;
-  DelayReason: DelayReason;
-  DelayReasonId: number;
-  Route: Route;
-  RouteId: number;
-  Notes: string;
+  Id: number | undefined;
+  Date: Date | undefined;
+  Minutes: number | undefined;
+  UsualMinutes: number | undefined;
+  DelayReason: DelayReason | undefined;
+  DelayReasonId: number | undefined;
+  Route: Route | undefined;
+  RouteId: number | undefined;
+  Notes: string | undefined;
 }

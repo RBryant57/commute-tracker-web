@@ -1,6 +1,7 @@
 export class FareClassModel {
 
 }
+
 export class FareClass {
   constructor(
     public id: number,

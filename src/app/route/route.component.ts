@@ -1,31 +1,39 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Params } from '@angular/router';
+import { CommonModule } from '@angular/common';
+
 import { Route } from './route-model';
 import { RouteService } from './route.service';
 
 @Component({
+  standalone: true,
   selector: 'app-route',
   templateUrl: './route.component.html',
-  styleUrls: ['./route.component.css']
+  styleUrls: ['./route.component.css'],
+  imports: [CommonModule]
 })
+
 export class RouteComponent implements OnInit {
-  public entities: Route[];
-  private errorMessage: string;
+  public entities: Route[] | undefined;
+  public isList: boolean;
+  public entityName: string;
+  private errorMessage: string | undefined;
+  private param: Params;
 
   constructor(private service: RouteService, private route: ActivatedRoute) { }
 
   ngOnInit() {
-    var param;
     this.route.params.subscribe(params => {
-      param = params;
+      this.param = params;
     });
 
-    if (!!param.id) {
-      this.loadEntity(param.id);
+    if (!!this.param['id']) {
+      this.loadEntity(this.param['id']);
+      this.isList = false;
     }
     else {
       this.loadEntities();
-      console.log(this.entities);
+      this.isList = true;
     }
   }
 
@@ -42,6 +50,7 @@ export class RouteComponent implements OnInit {
     this.service.getEntity(id).subscribe(
       entity => {
         this.entities = new Array(entity);
+        this.entityName = entity.name;
       },
       error => this.errorMessage = <any>error
     );

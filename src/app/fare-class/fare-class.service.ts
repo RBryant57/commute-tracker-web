@@ -1,17 +1,24 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { Inject, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
+
 import { FareClass } from './fare-class-model';
+import { ConfgService } from '../config-service/confg.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class FareClassService {
-  private baseURL: string;
-  private http: HttpClient;
 
-  constructor(http: HttpClient, @Inject('BASE_URL') baseUrl: string) { this.baseURL = baseUrl; this.http = http; }
+export class FareClassService {
+  constructor(private http: HttpClient, private configService: ConfgService) { 
+    this.configService.loadConfig()
+      .subscribe((conf) => {
+        this.baseURL = conf.apiHost;
+      });
+  }
+  
+  baseURL!: string;
 
   public getEntities(): Observable<FareClass[]> {
     return this.http.get<FareClass[]>(this.baseURL + 'api/fareclasses').pipe(

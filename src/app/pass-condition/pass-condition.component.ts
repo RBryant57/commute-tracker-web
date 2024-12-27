@@ -1,28 +1,33 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup, ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+
 import { Route } from '../route/route-model';
 import { RouteService } from '../route/route.service';
-//import { FilterService } from 'primeng/api';
 import { DelayReason } from '../delay-reason/delay-reason-model';
 import { DelayReasonService } from '../delay-reason/delay-reason.service';
-import { FormControl, FormGroup } from '@angular/forms';
 import { PassCondition } from './pass-condition-model';
-import { AlertService } from '../alert.service';
+import { AlertService } from '../alert/alert.service';
 import { PassConditionService } from './pass-condition.service';
+import { AlertModule } from "../alert/alert.module";
 
 @Component({
   selector: 'app-pass-condition',
   templateUrl: './pass-condition.component.html',
   styleUrls: ['./pass-condition.component.css'],
-  //providers: [FilterService]
+  standalone: true,
+  imports: [ReactiveFormsModule, FormsModule, NgbModule, AlertModule, CommonModule]
 })
+
 export class PassConditionComponent implements OnInit {
   public passConditionForm: FormGroup;
-  public routes: Route[];
-  public selectedRoute: Route;
-  public delayReasons: DelayReason[];
-  public selectedDelayReason: DelayReason;
-  public time: string;
-  private errorMessage: string;
+  public routes: Route[] | undefined;
+  public selectedRoute: Route | undefined;
+  public delayReasons: DelayReason[] | undefined;
+  public selectedDelayReason: DelayReason | undefined;
+  public time: string | undefined;
+  private errorMessage: string | undefined;
 
 
   displayMonths = 2;
@@ -71,9 +76,9 @@ export class PassConditionComponent implements OnInit {
 
     passCondition.Date = new Date(date.year, (date.month - 1), date.day, (startHours - 7), startMinutes, startSeconds);
     passCondition.DelayReason = this.passConditionForm.controls['delayReasonName'].value;
-    passCondition.DelayReasonId = passCondition.DelayReason.id;
+    passCondition.DelayReasonId = passCondition.DelayReason?.id;
     passCondition.Route = this.passConditionForm.controls['route'].value;
-    passCondition.RouteId = passCondition.Route.id;
+    passCondition.RouteId = passCondition.Route?.id;
     passCondition.Minutes = this.passConditionForm.controls['minutes'].value;
     passCondition.UsualMinutes = this.passConditionForm.controls['usualMinutes'].value;
 

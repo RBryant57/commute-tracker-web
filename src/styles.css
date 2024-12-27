@@ -1,1 +1,23 @@
-/* You can add global styles to this file, and also import other style files */
+button.entry{
+    background-color: forestgreen;
+}
+
+button.home{
+    font-size: 25px;
+    font-weight: bolder;
+    color: forestgreen;
+}
+
+hr.entry{
+    border-width: 10px;
+    color: black;
+}
+
+hr.footer{
+    color: forestgreen;
+}
+
+span.divider{
+    display: inline-block;
+    height: 50px;
+}

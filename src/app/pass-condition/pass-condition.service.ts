@@ -1,16 +1,20 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
 import { PassCondition } from './pass-condition-model';
+import { ConfgService } from '../config-service/confg.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PassConditionService {
-
-  private baseURL: string;
-  private http: HttpClient;
-
-  constructor(http: HttpClient, @Inject('BASE_URL') baseUrl: string) { this.baseURL = baseUrl; this.http = http; }
+  constructor(private http: HttpClient, private configService: ConfgService) { 
+    this.configService.loadConfig()
+      .subscribe((conf) => {
+        this.baseURL = conf.apiHost;
+      });
+  }
+  
+  baseURL!: string;
 
   public postPassCondition(passCondition: PassCondition) {
     var url = this.baseURL + 'api/PassConditions';
