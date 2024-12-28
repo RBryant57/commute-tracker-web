@@ -11,14 +11,34 @@ import { RouteType } from './route-type-model';
 })
 
 export class RouteTypeService {
-  constructor(private http: HttpClient, private configService: ConfgService) { 
+  constructor(private http: HttpClient, private configService: ConfgService) {
     this.configService.loadConfig()
       .subscribe((conf) => {
         this.baseURL = conf.apiHost;
       });
   }
-  
+
   baseURL!: string;
+
+  public async addRouteType(routeType: RouteType) {
+    const response = await fetch(
+      this.baseURL + 'api/routetypes',
+      {
+        method: 'POST',
+        body: JSON.stringify(routeType),
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json'
+        },
+      }
+    );
+    if (!response.ok) {
+      console.log('ex: ' + response.status);
+    }
+    const result = (await response.json()) as RouteType;
+
+    return response;
+  }
 
   public getEntities(): Observable<RouteType[]> {
     return this.http.get<RouteType[]>(this.baseURL + 'api/routetypes').pipe(
@@ -32,6 +52,26 @@ export class RouteTypeService {
       tap(data => console.log('All: ' + JSON.stringify(data))),
       catchError(this.handleError)
     );
+  }
+
+  public async saveRouteType(routeType: RouteType) {
+    const response = await fetch(
+      this.baseURL + 'api/routetypes/' + routeType.id,
+      {
+        method: 'PUT',
+        body: JSON.stringify(routeType),
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json'
+        },
+      }
+    );
+    if (!response.ok) {
+      console.log('ex: ' + response.status);
+    }
+    const result = (await response.json()) as RouteType;
+
+    return response;
   }
 
   private handleError(err: HttpErrorResponse) {

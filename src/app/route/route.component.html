@@ -9,21 +9,25 @@
 
   <p *ngIf="!entities"><em>Loading...</em></p>
 
+  <button routerLink="/routeadd" *ngIf="isList">Add New Route</button>
+  <button routerLink="/routeedit/{{ entityId }}" *ngIf="!isList">Edit Route</button>
   <table class='table table-striped' aria-labelledby="tableLabel" *ngIf="entities">
     <thead>
       <tr>
         <th>Id</th>
         <th>Name</th>
         <th>Route Type</th>
+        <th>Route Number</th>
         <th>Miles</th>
         <th>Notes</th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let entity of entities">
-        <td><a href="route/{{ entity.id }}">{{ entity.id }}</a></td>
+        <td><a href="routeedit/{{ entity.id }}">{{ entity.id }}</a></td>
         <td>{{ entity.name }}</td>
         <td>{{ entity.routeType.name }}</td>
+        <td>{{ entity.number }}</td>
         <td>{{ entity.miles }}</td>
         <td>{{ entity.notes }}</td>
       </tr>

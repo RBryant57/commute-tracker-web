@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Params, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 
 import { Route } from './route-model';
@@ -10,13 +10,14 @@ import { RouteService } from './route.service';
   selector: 'app-route',
   templateUrl: './route.component.html',
   styleUrls: ['./route.component.css'],
-  imports: [CommonModule]
+  imports: [CommonModule, RouterModule]
 })
 
 export class RouteComponent implements OnInit {
   public entities: Route[] | undefined;
   public isList: boolean;
   public entityName: string;
+  public entityId: number;
   private errorMessage: string | undefined;
   private param: Params;
 
@@ -51,6 +52,7 @@ export class RouteComponent implements OnInit {
       entity => {
         this.entities = new Array(entity);
         this.entityName = entity.name;
+        this.entityId = entity.id;
       },
       error => this.errorMessage = <any>error
     );

@@ -1,0 +1,68 @@
+<form [formGroup]="entryForm">
+  <div class="container">
+    <div class="py-5 text-center">
+      <img class="d-block mx-auto mb-4" src="../../assets/images/YCDLogo.png" alt="" width="172" height="172">
+      <h2 *ngIf="!isNew">Route {{ entity.name }}</h2>
+      <h2 *ngIf="isNew">New Route</h2>
+    </div>
+
+    <h4 class="mb-3">Information</h4>
+    <div class="row">
+      <div class="col-md-6">
+        <label for="name">Route Name</label>
+        <input type="text" class="form-control" formControlName="name" placeholder="Route Name">
+        <div class="invalid-feedback">
+          Route name is required.
+        </div>
+      </div>
+      <div class="col-md-6">
+        <label for="routeType">Route Type</label>
+        <select class="custom-select d-block w-100" id="destination" formControlName="routeType">
+          <option *ngFor="let routeType of routeTypes;" [ngValue]="routeType.id">{{ routeType.name }}</option>
+        </select>
+        <div class="invalid-feedback">
+          Please select a valid route type.
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6">
+        <label for="routeNumber">Route Number</label>
+        <input type="text" class="form-control" formControlName="routeNumber" placeholder="Route Number">
+        <div class="invalid-feedback">
+          Route number is required.
+        </div>
+      </div>
+      <div class="col-md-6">
+        <label for="routeMiles">Route Miles</label>
+        <input type="text" class="form-control" formControlName="miles" placeholder="Route Miles">
+        <div class="invalid-feedback">
+          Route miles are required.
+        </div>
+      </div>
+      <div class="col-md-12">
+        <label for="notes">Notes</label>
+        <div class="input-group">
+          <input type="text" class="form-control" formControlName="notes" placeholder="Notes">
+        </div>
+      </div>
+    </div>
+    <span class="divider"></span>
+    <hr class="entry">
+    <span class="divider"></span>
+    <div>
+      <button class="btn btn-primary btn-lg btn-block entry" type="submit" *ngIf="isNew" (click)="addRoute()">Add Route</button>
+      <button class="btn btn-primary btn-lg btn-block entry" type="submit" *ngIf="!isNew" (click)="saveRoute()">Save Route</button>
+    </div>
+  </div>
+</form>
+<footer class="my-5 pt-5 text-muted text-center text-small">
+  <p class="mb-1">&copy; 2006-2025 YellowCaddis Development</p>
+  <ul class="list-inline">
+    <li class="list-inline-item"><a href="#">Privacy</a></li>
+    <li class="list-inline-item"><a href="#">Terms</a></li>
+    <li class="list-inline-item"><a href="#">Support</a></li>
+  </ul>
+</footer>
+<hr class="footer" />
