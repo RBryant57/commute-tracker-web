@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Params, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 
 import { FareClass } from './fare-class-model';
@@ -10,7 +10,7 @@ import { FareClassService } from './fare-class.service';
   standalone: true,
   templateUrl: './fare-class.component.html',
   styleUrls: ['./fare-class.component.css'],
-  imports: [CommonModule]
+  imports: [CommonModule, RouterModule]
 })
 
 export class FareClassComponent implements OnInit {

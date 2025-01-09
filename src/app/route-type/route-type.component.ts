@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Params, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 
 import { RouteType } from './route-type-model';
@@ -10,7 +10,7 @@ import { RouteTypeService } from './route-type.service';
   standalone: true,
   templateUrl: './route-type.component.html',
   styleUrls: ['./route-type.component.css'],
-  imports: [CommonModule]
+  imports: [CommonModule, RouterModule]
 })
 
 export class RouteTypeComponent implements OnInit {

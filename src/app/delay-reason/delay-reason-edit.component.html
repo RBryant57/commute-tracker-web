@@ -1,0 +1,59 @@
+<form [formGroup]="entryForm">
+  <div class="container">
+    <alert></alert>
+    <div class="py-5 text-center">
+      <img class="d-block mx-auto mb-4" src="../../assets/images/YCDLogo.png" alt="" width="172" height="172">
+      <h2 *ngIf="!isNew">Delay Reason {{ entity.name }}</h2>
+      <h2 *ngIf="isNew">New Delay Reason</h2>
+    </div>
+
+    <h4 class="mb-3">Information</h4>
+    <div class="row">
+      <div class="col-md-6">
+        <label for="name">Delay Reason Name</label>
+        <input type="text" class="form-control" formControlName="name" placeholder="Route Name">
+        <div class="invalid-feedback">
+          Delay Reason name is required.
+        </div>
+      </div>
+    </div>
+    <div class="col-md-12">
+      <label for="notes">Notes</label>
+      <div class="input-group">
+        <input type="text" class="form-control" formControlName="notes" placeholder="Notes">
+      </div>
+    </div>
+
+    <span class="divider"></span>
+    <hr class="entry">
+    <span class="divider"></span>
+    <div *ngIf="isNew">
+      <button class="btn btn-primary btn-lg btn-block entry" type="submit" (click)="addDelayReason()">Add
+        Delay Reason</button>
+    </div>
+    <div *ngIf="!isNew">
+      <div class="row">
+        <div class="col">
+          <button class="btn btn-primary btn-lg btn-block entry" type="submit" (click)="saveDelayReason()">Save
+            Delay Reason</button>
+        </div>
+        <div class="col">
+          <div class="deleteButton">
+            <button class="btn btn-primary btn-lg btn-block entry" type="submit" (click)="deleteDelayReason()">Delete
+              Delay Reason</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <footer class="my-5 pt-5 text-muted text-center text-small">
+      <p class="mb-1">&copy; 2006-2025 YellowCaddis Development</p>
+      <ul class="list-inline">
+        <li class="list-inline-item"><a href="#">Privacy</a></li>
+        <li class="list-inline-item"><a href="#">Terms</a></li>
+        <li class="list-inline-item"><a href="#">Support</a></li>
+      </ul>
+    </footer>
+  </div>
+</form>
+<hr class="footer" />

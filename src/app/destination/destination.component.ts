@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Params, RouterModule } from '@angular/router';
 
 import { Destination } from './destination-model'
 import { DestinationService } from './destination.service';
@@ -10,7 +10,7 @@ import { CommonModule } from '@angular/common';
   standalone: true,
   templateUrl: './destination.component.html',
   styleUrls: ['./destination.component.css'],
-  imports: [CommonModule]
+  imports: [CommonModule, RouterModule]
 })
 export class DestinationComponent implements OnInit {
   public entities: Destination[] | undefined;

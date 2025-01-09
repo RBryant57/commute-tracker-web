@@ -9,6 +9,7 @@
 
   <p *ngIf="!entities"><em>Loading...</em></p>
 
+  <button class="btn btn-primary" routerLink="/delayreasonadd" *ngIf="isList">Add New Delay Reason</button>
   <table class='table table-striped' aria-labelledby="tableLabel" *ngIf="entities">
     <thead>
       <tr>
@@ -19,7 +20,7 @@
     <tbody>
       <tr *ngFor="let entity of entities">
         <td><a href="delayreason/{{ entity.id }}">{{ entity.id }}</a></td>
-        <td>{{ entity.description }}</td>
+        <td>{{ entity.name }}</td>
       </tr>
     </tbody>
   </table>

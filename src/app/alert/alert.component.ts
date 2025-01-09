@@ -11,8 +11,8 @@ export class AlertComponent implements OnInit, OnDestroy {
     @Input() fade = true;
 
     alerts: Alert[] = [];
-    alertSubscription: Subscription = new Subscription;
-    routeSubscription: Subscription = new Subscription;
+    alertSubscription!: Subscription;
+    routeSubscription!: Subscription;
 
     constructor(private router: Router, private alertService: AlertService) { }
 
@@ -26,7 +26,7 @@ export class AlertComponent implements OnInit, OnDestroy {
                     this.alerts = this.alerts.filter(x => x.keepAfterRouteChange);
 
                     // remove 'keepAfterRouteChange' flag on the rest
-                    //this.alerts.forEach(x => delete x.keepAfterRouteChange);
+                    this.alerts.forEach(x => delete x.keepAfterRouteChange);
                     return;
                 }
 
@@ -57,33 +57,31 @@ export class AlertComponent implements OnInit, OnDestroy {
         // check if already removed to prevent error on auto close
         if (!this.alerts.includes(alert)) return;
 
-        if (this.fade) {
-            // fade out alert
-            //this.alerts.find(x => x === alert).fade = true;
+        // fade out alert if this.fade === true
+        const timeout = this.fade ? 250 : 0;
+        alert.fade = this.fade;
 
-            // remove alert after faded out
-            setTimeout(() => {
-                this.alerts = this.alerts.filter(x => x !== alert);
-            }, 250);
-        } else {
-            // remove alert
+        setTimeout(() => {
+            // filter alert out of array
             this.alerts = this.alerts.filter(x => x !== alert);
-        }
+        }, timeout);
     }
 
     cssClass(alert: Alert) {
         //if (!alert) return;
 
-        const classes = ['alert', 'alert-dismissable'];
+        const classes = ['alert', 'alert-dismissible'];
                 
         const alertTypeClass = {
-            [AlertType.Success]: 'alert alert-success',
-            [AlertType.Error]: 'alert alert-danger',
-            [AlertType.Info]: 'alert alert-info',
-            [AlertType.Warning]: 'alert alert-warning'
+            [AlertType.Success]: 'alert-success',
+            [AlertType.Error]: 'alert-danger',
+            [AlertType.Info]: 'alert-info',
+            [AlertType.Warning]: 'alert-warning'
         }
 
-        classes.push(alertTypeClass[alert.type]);
+        if (alert.type !== undefined) {
+            classes.push(alertTypeClass[alert.type]);
+        }
 
         if (alert.fade) {
             classes.push('fade');

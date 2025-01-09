@@ -3,22 +3,26 @@ import { Injectable } from '@angular/core';
 
 import { CommuteLeg, CommuteLegRequest } from './commute-model';
 import { ConfgService } from '../config-service/confg.service';
+import { BASE_URL } from '../common/common';
 
 @Injectable({
   providedIn: 'root'
 })
 
 export class CommuteService {
-  constructor(private http: HttpClient, private configService: ConfgService) { 
+  constructor(private http: HttpClient, private configService: ConfgService) {
     this.configService.loadConfig()
       .subscribe((conf) => {
         this.baseURL = conf.apiHost;
       });
   }
-  
+
   baseURL!: string;
 
   public postCommute(leg: CommuteLeg) {
+    if (this.baseURL == undefined) {
+      this.baseURL = BASE_URL;
+    }
     var url = this.baseURL + 'api/CommuteLegs/true';
 
     const body = JSON.stringify(this.transformCommuteLeg(leg));
@@ -32,6 +36,9 @@ export class CommuteService {
   }
 
   public postCommuteLeg(leg: CommuteLeg) {
+    if (this.baseURL == undefined) {
+      this.baseURL = BASE_URL;
+    }
     var url = this.baseURL + 'api/CommuteLegs/false';
 
     const body = JSON.stringify(this.transformCommuteLeg(leg));

@@ -1,5 +1,6 @@
 <form [formGroup]="entryForm">
   <div class="container">
+    <alert></alert>
     <div class="py-5 text-center">
       <img class="d-block mx-auto mb-4" src="../../assets/images/YCDLogo.png" alt="" width="172" height="172">
       <h2 *ngIf="!isNew">Route {{ entity.name }}</h2>
@@ -51,9 +52,23 @@
     <span class="divider"></span>
     <hr class="entry">
     <span class="divider"></span>
-    <div>
-      <button class="btn btn-primary btn-lg btn-block entry" type="submit" *ngIf="isNew" (click)="addRoute()">Add Route</button>
-      <button class="btn btn-primary btn-lg btn-block entry" type="submit" *ngIf="!isNew" (click)="saveRoute()">Save Route</button>
+    <div *ngIf="isNew">
+      <button class="btn btn-primary btn-lg btn-block entry" type="submit" (click)="addRoute()">Add
+        Route</button>
+    </div>
+    <div *ngIf="!isNew">
+      <div class="row">
+        <div class="col">
+          <button class="btn btn-primary btn-lg btn-block entry" type="submit" (click)="saveRoute()">Save
+            Route</button>
+        </div>
+        <div class="col">
+          <div class="deleteButton">
+            <button class="btn btn-primary btn-lg btn-block entry" type="submit" (click)="deleteRoute()">Delete
+              Route</button>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </form>

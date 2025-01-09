@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Params, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 
 import { DelayReason } from './delay-reason-model';
@@ -10,7 +10,7 @@ import { DelayReasonService } from './delay-reason.service';
   standalone: true,
   templateUrl: './delay-reason.component.html',
   styleUrls: ['./delay-reason.component.css'],
-  imports: [CommonModule]
+  imports: [CommonModule, RouterModule]
 })
 
 export class DelayReasonComponent implements OnInit {
@@ -50,7 +50,7 @@ export class DelayReasonComponent implements OnInit {
     this.service.getEntity(id).subscribe(
       entity => {
         this.entities = new Array(entity);
-        this.entityName = entity.description
+        this.entityName = entity.name
       },
       error => this.errorMessage = <any>error
     );

@@ -5,6 +5,7 @@ import { catchError, map, tap } from 'rxjs/operators';
 
 import { ConfgService } from '../config-service/confg.service';
 import { RouteType } from './route-type-model';
+import { BASE_URL } from '../common/common';
 
 @Injectable({
   providedIn: 'root'
@@ -21,6 +22,9 @@ export class RouteTypeService {
   baseURL!: string;
 
   public async addRouteType(routeType: RouteType) {
+    if (this.baseURL == undefined) {
+      this.baseURL = BASE_URL;
+    }
     const response = await fetch(
       this.baseURL + 'api/routetypes',
       {
@@ -40,7 +44,33 @@ export class RouteTypeService {
     return response;
   }
 
+  public async deleteRouteType(routeType: RouteType) {
+    if (this.baseURL == undefined) {
+      this.baseURL = BASE_URL;
+    }
+    const response = await fetch(
+      this.baseURL + 'api/routetypes/' + routeType.id,
+      {
+        method: 'DELETE',
+        body: JSON.stringify(routeType),
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json'
+        },
+      }
+    );
+    if (!response.ok) {
+      console.log('ex: ' + response.status);
+    }
+    const result = (await response.json()) as RouteType;
+
+    return response;
+  }
+
   public getEntities(): Observable<RouteType[]> {
+    if (this.baseURL == undefined) {
+      this.baseURL = BASE_URL;
+    }
     return this.http.get<RouteType[]>(this.baseURL + 'api/routetypes').pipe(
       tap(data => console.log('All: ' + JSON.stringify(data))),
       catchError(this.handleError)
@@ -48,6 +78,9 @@ export class RouteTypeService {
   }
 
   public getEntity(id: number): Observable<RouteType> {
+    if (this.baseURL == undefined) {
+      this.baseURL = BASE_URL;
+    }
     return this.http.get<RouteType>(this.baseURL + 'api/routetypes/' + id).pipe(
       tap(data => console.log('All: ' + JSON.stringify(data))),
       catchError(this.handleError)
@@ -55,6 +88,9 @@ export class RouteTypeService {
   }
 
   public async saveRouteType(routeType: RouteType) {
+    if (this.baseURL == undefined) {
+      this.baseURL = BASE_URL;
+    }
     const response = await fetch(
       this.baseURL + 'api/routetypes/' + routeType.id,
       {

@@ -1,17 +1,18 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
-import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 
 import { RouteService } from './route.service';
 import { RouteType } from '../route-type/route-type-model';
 import { Route } from './route-model';
 import { RouteTypeService } from '../route-type/route-type.service';
+import { AlertModule, AlertService } from '../alert';
 
 @Component({
   selector: 'app-route-edit',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, AlertModule],
   templateUrl: './route-edit.component.html',
   styleUrl: './route-edit.component.css'
 })
@@ -31,7 +32,7 @@ export class RouteEditComponent implements OnInit {
     notes: new FormControl()
   })
 
-  constructor(private routeService: RouteService, private routeTypeService: RouteTypeService, private route: ActivatedRoute, private formBuilder: FormBuilder) { }
+  constructor(private routeService: RouteService, private routeTypeService: RouteTypeService, private route: ActivatedRoute, private alertService: AlertService) { }
 
   ngOnInit() {
     this.route.params.subscribe(params => {
@@ -62,6 +63,12 @@ export class RouteEditComponent implements OnInit {
     }
 
     this.routeService.addRoute(newEntity);
+    this.alertService.success('Route added.');
+  }
+
+  public deleteRoute(){
+    this.routeService.deleteRoute(this.entity);
+    this.alertService.success('Route removed.');
   }
 
   public saveRoute() {
@@ -72,6 +79,7 @@ export class RouteEditComponent implements OnInit {
     this.entity.notes = this.entryForm.controls['notes'].value;
 
     this.routeService.saveRoute(this.entity);
+    this.alertService.success('Route updated.');
   }
 
   private loadEntity(id: number) {

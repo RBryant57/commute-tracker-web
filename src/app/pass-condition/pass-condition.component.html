@@ -72,7 +72,7 @@
           <label for="delayReason">Delay Reason</label>
           <select class="custom-select d-block w-100" formControlName="delayReasonName">
             <option *ngFor="let delayReason of delayReasons" [ngValue]="delayReason">
-              {{delayReason.description}}
+              {{delayReason.name}}
             </option>
           </select>
           <div class="invalid-feedback">

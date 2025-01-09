@@ -8,6 +8,10 @@ button.home{
     color: forestgreen;
 }
 
+div.deleteButton{
+    float: right;
+}
+
 hr.entry{
     border-width: 10px;
     color: black;
