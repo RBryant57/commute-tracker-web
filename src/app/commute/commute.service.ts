@@ -23,7 +23,7 @@ export class CommuteService {
     if (this.baseURL == undefined) {
       this.baseURL = BASE_URL;
     }
-    var url = this.baseURL + 'api/CommuteLegs/true';
+    var url = this.baseURL + 'api/CommuteLegs?finalLeg=true';
 
     const body = JSON.stringify(this.transformCommuteLeg(leg));
     const httpOptions = {
@@ -39,7 +39,7 @@ export class CommuteService {
     if (this.baseURL == undefined) {
       this.baseURL = BASE_URL;
     }
-    var url = this.baseURL + 'api/CommuteLegs/false';
+    var url = this.baseURL + 'api/CommuteLegs?finalLeg=false';
 
     const body = JSON.stringify(this.transformCommuteLeg(leg));
     const httpOptions = {

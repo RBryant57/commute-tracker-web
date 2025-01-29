@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Inject, Injectable } from '@angular/core';
-import { PassCondition } from './pass-condition-model';
+import { Injectable } from '@angular/core';
+
+import { PassCondition, PassConditionRequest } from './pass-condition-model';
 import { ConfgService } from '../config-service/confg.service';
 import { BASE_URL } from '../common/common';
 
@@ -23,7 +24,7 @@ export class PassConditionService {
     }
     var url = this.baseURL + 'api/PassConditions';
 
-    const body = JSON.stringify(passCondition);
+    const body = JSON.stringify(this.transformPassCondition(passCondition));
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
@@ -32,5 +33,19 @@ export class PassConditionService {
 
     return this.http.post(url, body, httpOptions);
   }
+
+    private transformPassCondition(passCondition: PassCondition): PassConditionRequest {
+      var returnVal = new PassConditionRequest;
+      returnVal.Id = passCondition.Id;
+      returnVal.Date = passCondition.Date;
+      returnVal.Minutes = passCondition.Minutes;
+      returnVal.UsualMinutes = passCondition.UsualMinutes;
+      returnVal.DelayReasonId = passCondition.DelayReason.id;
+      returnVal.RouteId = passCondition.Route.id;
+      returnVal.Notes = passCondition.Notes;
+  
+      return returnVal;
+  
+    }
 
 }

@@ -75,10 +75,8 @@ export class PassConditionComponent implements OnInit {
     var startSeconds = time.slice(6, 8);
 
     passCondition.Date = new Date(date.year, (date.month - 1), date.day, (startHours - 7), startMinutes, startSeconds);
-    const thisDelayReason = this.passConditionForm.controls['delayReasonName'].value;
-    passCondition.DelayReasonId = thisDelayReason.id; //passCondition.DelayReason?.id;
-    const thisRoute = this.passConditionForm.controls['route'].value;
-    passCondition.RouteId = thisRoute.id; //passCondition.Route?.id;
+    passCondition.DelayReason = this.passConditionForm.controls['delayReasonName'].value;
+    passCondition.Route = this.passConditionForm.controls['route'].value
     passCondition.Minutes = this.passConditionForm.controls['minutes'].value;
     passCondition.UsualMinutes = this.passConditionForm.controls['usualMinutes'].value;
 

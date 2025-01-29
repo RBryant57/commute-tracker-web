@@ -11,6 +11,7 @@ export class Commute {
   StartTime: Date | undefined;
   EndTime!: Date;
   Destination!: Destination;
+  DesinationId: number;
   DelaySeconds!: number;
   CommuteLegModels!: CommuteLeg[];
   Notes!: string;
@@ -21,11 +22,16 @@ export class CommuteLeg {
   StartTime!: Date;
   EndTime!: Date;
   Destination!: Destination;
+  DestinationId: number;
   DelayReason!: DelayReason;
+  DelayReasonId: number;
   DelaySeconds!: number;
   FareClass!: FareClass;
+  FareClassId: number;
   Route!: Route;
+  RouteId: number;
   Commute!: Commute;
+  CommuteId!: number;
   Notes!: string;
 }
 
